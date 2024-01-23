@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Getter
 @Setter
@@ -25,4 +26,12 @@ public class OrdeItem {
     @Basic
     @Column(name = "price",precision = 10,scale = 2,nullable = false)
     private BigDecimal price;
+
+    @ManyToOne
+    @JoinColumn(name = "order_item_id",referencedColumnName = "order_item_id",nullable = false,updatable = false)
+    private Product product;
+
+    @ManyToOne
+    @JoinColumn(name = "order_item_id",referencedColumnName = "order_item_id",nullable = false,updatable = false)
+    private Order order;
 }

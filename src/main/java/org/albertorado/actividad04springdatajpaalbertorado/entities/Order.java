@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 @Table
@@ -26,4 +27,11 @@ public class Order {
     @Basic
     @Column(name = "total_price", precision = 10, scale = 2, nullable = false)
     private BigDecimal totalPrice;
+
+    @ManyToOne
+    @JoinColumn(name = "order_id",referencedColumnName = "order_id",nullable = false,updatable = false)
+    private Payment payment;
+
+    @OneToMany(mappedBy = "order")
+    private List<OrdeItem> ordeItemList;
 }

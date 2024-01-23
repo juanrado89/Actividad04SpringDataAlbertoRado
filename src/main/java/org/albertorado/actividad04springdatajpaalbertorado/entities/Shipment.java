@@ -27,9 +27,16 @@ public class Shipment {
     @Column(name = "address",length = 100, nullable = false)
     private String address;
     @Basic
-    @Column(value = "shipment_date", nullable = false)
+    @Column(name = "city", length = 100, nullable = false)
     private String city;
+    @Basic
+    @Column(name = "state", length = 20, nullable = false)
     private String state;
+    @Basic
+    @Column(name = "country", length = 50, nullable = false)
     private String country;
+    @Basic
+    @Column(name = "zip_code", length = 10, nullable = false)
     private String zipCode;
+
 }

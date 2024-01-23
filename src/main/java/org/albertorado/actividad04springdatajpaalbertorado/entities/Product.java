@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Getter
 @Setter
@@ -28,5 +29,24 @@ public class Product {
     @Basic
     @Column(name = "price",precision = 10,scale = 2,nullable = false)
     private BigDecimal price;
+    @Basic
+    @Column(name = "stock",nullable = false)
     private int stock;
+
+    @OneToMany(mappedBy = "product")
+    private List<Wishlist> wishlists;
+
+    @OneToMany(mappedBy = "product")
+    private List<Cart> carts;
+
+    @OneToMany(mappedBy = "product")
+    private List<OrdeItem> orderItems;
+
+    @ManyToMany
+    @JoinTable(
+            name="category",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id")
+    )
+    private List<Category> categories;
 }

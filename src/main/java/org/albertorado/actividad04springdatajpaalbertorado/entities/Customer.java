@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Table
 @Getter
@@ -35,4 +37,16 @@ public class Customer {
     @Basic
     @Column(name = "phone_number", length = 100, nullable = false)
     private String phoneNumber;
+
+    @ManyToOne
+    @JoinColumn(name = "customer_id",referencedColumnName = "customer_id",nullable = false,updatable = false)
+    private Wishlist wishlist;
+
+    @ManyToOne
+    @JoinColumn(name = "customer_id",referencedColumnName = "customer_id",nullable = false,updatable = false)
+    private Cart cart;
+
+    @OneToMany(mappedBy = "customer")
+    private List<Payment> paymentList;
+
 }

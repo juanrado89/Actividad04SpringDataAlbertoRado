@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 @Table
@@ -29,4 +30,11 @@ public class Payment {
     @Basic
     @Column(name = "amount",precision = 10,scale = 2,nullable = false)
     private BigDecimal amount;
+
+    @ManyToOne
+    @JoinColumn(name = "payment_id",referencedColumnName = "payment_id",nullable = false,updatable = false)
+    private Customer customer;
+
+    @OneToMany(mappedBy = "payment")
+    private List<Order> orders;
 }
