@@ -7,15 +7,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @Entity
-@Table (name = "Order_Item")
+@Table (name = "order_Item",uniqueConstraints = {@UniqueConstraint(name = "products",columnNames = {"product_id","order_id"})})
 @NoArgsConstructor
-public class OrdeItem {
+public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_item_id",nullable = false)
@@ -28,10 +27,10 @@ public class OrdeItem {
     private BigDecimal price;
 
     @ManyToOne
-    @JoinColumn(name = "order_item_id",referencedColumnName = "order_item_id",nullable = false,updatable = false)
+    @JoinColumn(name = "product_id",referencedColumnName = "product_id",nullable = false,updatable = false)
     private Product product;
 
     @ManyToOne
-    @JoinColumn(name = "order_item_id",referencedColumnName = "order_item_id",nullable = false,updatable = false)
+    @JoinColumn(name = "order_id",referencedColumnName = "order_id",nullable = false,updatable = false)
     private Order order;
 }

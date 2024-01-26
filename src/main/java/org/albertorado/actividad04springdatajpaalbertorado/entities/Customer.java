@@ -9,7 +9,7 @@ import lombok.Setter;
 import java.util.List;
 
 @Entity
-@Table
+@Table(name = "customer")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -39,14 +39,17 @@ public class Customer {
     private String phoneNumber;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id",referencedColumnName = "customer_id",nullable = false,updatable = false)
+    @JoinColumn(name = "wishlist_id",referencedColumnName = "wishlist_id",nullable = false,updatable = false)
     private Wishlist wishlist;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id",referencedColumnName = "customer_id",nullable = false,updatable = false)
+    @JoinColumn(name = "cart_id",referencedColumnName = "cart_id",nullable = false,updatable = false)
     private Cart cart;
 
     @OneToMany(mappedBy = "customer")
     private List<Payment> paymentList;
+
+    @OneToMany(mappedBy = "customer")
+    private List<Shipment> shipmentList;
 
 }

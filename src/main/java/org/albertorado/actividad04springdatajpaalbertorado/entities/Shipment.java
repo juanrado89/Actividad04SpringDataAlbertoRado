@@ -7,9 +7,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
-@Table
+@Table(name = "shipment")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -39,4 +40,10 @@ public class Shipment {
     @Column(name = "zip_code", length = 10, nullable = false)
     private String zipCode;
 
+    @ManyToOne
+    @JoinColumn(name = "customer_id",referencedColumnName = "customer_id",nullable = false,updatable = false)
+    private Customer customer;
+
+    @OneToMany(mappedBy = "shipment")
+    private List<Order> orderList;
 }

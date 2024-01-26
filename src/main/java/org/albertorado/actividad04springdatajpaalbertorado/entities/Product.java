@@ -13,7 +13,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @Entity
-@Table
+@Table(name="product")
 @NoArgsConstructor
 public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,14 +33,16 @@ public class Product {
     @Column(name = "stock",nullable = false)
     private int stock;
 
-    @OneToMany(mappedBy = "product")
-    private List<Wishlist> wishlists;
+    @ManyToOne()
+    @JoinColumn(name = "wishlist_id",referencedColumnName = "wishlist_id",nullable = false,updatable = false,unique = true)
+    private Wishlist wishlist;
+
+    @ManyToOne()
+    @JoinColumn(name = "cart_id",referencedColumnName = "cart_id",nullable = false,updatable = false,unique = true)
+    private Cart cart;
 
     @OneToMany(mappedBy = "product")
-    private List<Cart> carts;
-
-    @OneToMany(mappedBy = "product")
-    private List<OrdeItem> orderItems;
+    private List<OrderItem> orderItems;
 
     @ManyToMany
     @JoinTable(

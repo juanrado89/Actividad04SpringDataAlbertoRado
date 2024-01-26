@@ -12,20 +12,16 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @Entity
-@Table
+@Table(name = "wishlist",uniqueConstraints = {@UniqueConstraint(name="products", columnNames = {"product_id" , "customer_id"})})
 @NoArgsConstructor
 public class Wishlist {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "wishlist_id",nullable = false)
     private int wishlistId;
-    @Basic
-    @Column(name = "wishlist_name",length = 100,nullable = false)
-    private String wishlistName;
 
-    @ManyToOne
-    @JoinColumn(name = "wishlist_id",referencedColumnName = "wishlist_id",nullable = false,updatable = false)
-    private Product product;
-    @OneToMany()
+    @OneToMany(mappedBy = "wishlist")
+    private List<Product> product;
+    @OneToMany(mappedBy = "wishlist")
     private  List<Customer> customers;
 }

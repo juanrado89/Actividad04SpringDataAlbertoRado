@@ -9,7 +9,7 @@ import lombok.Setter;
 import java.util.List;
 
 @Entity
-@Table
+@Table(name = "carts",uniqueConstraints = {@UniqueConstraint(name="products", columnNames = {"product_id" , "customer_id"})})
 @Getter
 @Setter
 @NoArgsConstructor

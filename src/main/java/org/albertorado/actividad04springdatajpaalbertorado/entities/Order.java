@@ -11,7 +11,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
-@Table
+@Table(name = "orders")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -29,9 +29,13 @@ public class Order {
     private BigDecimal totalPrice;
 
     @ManyToOne
-    @JoinColumn(name = "order_id",referencedColumnName = "order_id",nullable = false,updatable = false)
+    @JoinColumn(name = "payment_id",referencedColumnName = "payment_id",nullable = false,updatable = false)
     private Payment payment;
 
+    @ManyToOne
+    @JoinColumn(name = "shipment_id",referencedColumnName = "shipment_id",nullable = false,updatable = false)
+    private Shipment shipment;
+
     @OneToMany(mappedBy = "order")
-    private List<OrdeItem> ordeItemList;
+    private List<OrderItem> orderItemList;
 }
