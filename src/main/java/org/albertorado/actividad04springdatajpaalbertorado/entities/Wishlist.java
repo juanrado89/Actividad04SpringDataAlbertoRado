@@ -20,8 +20,11 @@ public class Wishlist {
     @Column(name = "wishlist_id",nullable = false)
     private int wishlistId;
 
-    @OneToMany(mappedBy = "wishlist")
-    private List<Product> product;
-    @OneToMany(mappedBy = "wishlist")
-    private  List<Customer> customers;
+    @ManyToOne()
+    @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false, updatable = false)
+    private Product product;
+
+    @ManyToOne
+    @JoinColumn(name = "customer_id", referencedColumnName = "customer_id", nullable = false, updatable = false)
+    private Customer customer;
 }

@@ -23,8 +23,9 @@ public class Cart {
     @Column(name = "quantity",nullable = false)
     private int quantity;
 
-    @OneToMany(mappedBy = "cart")
-    private List<Product> productList;
+    @ManyToOne
+    @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false, updatable = false)
+    private Product product;
     @ManyToOne
     @JoinColumn(name = "customer_id", referencedColumnName = "customer_id", nullable = false, updatable = false)
     private Customer customer;

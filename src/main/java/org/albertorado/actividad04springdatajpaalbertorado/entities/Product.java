@@ -33,13 +33,11 @@ public class Product {
     @Column(name = "stock",nullable = false)
     private int stock;
 
-    @ManyToOne()
-    @JoinColumn(name = "wishlist_id",referencedColumnName = "wishlist_id",nullable = false,updatable = false,unique = true)
-    private Wishlist wishlist;
+    @OneToMany(mappedBy = "product")
+    private List<Wishlist> wishlists;
 
-    @ManyToOne()
-    @JoinColumn(name = "cart_id",referencedColumnName = "cart_id",nullable = false,updatable = false,unique = true)
-    private Cart cart;
+    @OneToMany(mappedBy = "product")
+    private List<Cart> carts;
 
     @OneToMany(mappedBy = "product")
     private List<OrderItem> orderItems;
