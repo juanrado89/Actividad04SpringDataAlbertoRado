@@ -42,14 +42,13 @@ public class Customer {
     @JoinColumn(name = "wishlist_id",referencedColumnName = "wishlist_id",nullable = false,updatable = false)
     private Wishlist wishlist;
 
-    @ManyToOne
-    @JoinColumn(name = "cart_id",referencedColumnName = "cart_id",nullable = false,updatable = false)
-    private Cart cart;
-
     @OneToMany(mappedBy = "customer")
     private List<Payment> paymentList;
 
     @OneToMany(mappedBy = "customer")
     private List<Shipment> shipmentList;
+
+    @OneToMany(mappedBy = "customer")
+    private List<Cart> cart;
 
 }

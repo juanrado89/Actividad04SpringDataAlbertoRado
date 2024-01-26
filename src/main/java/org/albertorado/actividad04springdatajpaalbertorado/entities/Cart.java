@@ -9,7 +9,7 @@ import lombok.Setter;
 import java.util.List;
 
 @Entity
-@Table(name = "carts",uniqueConstraints = {@UniqueConstraint(name="products", columnNames = {"product_id" , "customer_id"})})
+@Table(name = "cart")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -25,6 +25,7 @@ public class Cart {
 
     @OneToMany(mappedBy = "cart")
     private List<Product> productList;
-    @OneToMany(mappedBy = "cart")
-    private List<Customer> customerList;
+    @ManyToOne
+    @JoinColumn(name = "customer_id", referencedColumnName = "customer_id", nullable = false, updatable = false)
+    private Customer customer;
 }

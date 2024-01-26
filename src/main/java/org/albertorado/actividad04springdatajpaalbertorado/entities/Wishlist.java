@@ -12,7 +12,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @Entity
-@Table(name = "wishlist",uniqueConstraints = {@UniqueConstraint(name="products", columnNames = {"product_id" , "customer_id"})})
+@Table(name = "wishlist")
 @NoArgsConstructor
 public class Wishlist {
     @Id
