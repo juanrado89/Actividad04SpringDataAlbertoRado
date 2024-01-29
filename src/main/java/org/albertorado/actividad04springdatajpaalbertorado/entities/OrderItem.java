@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -33,4 +34,17 @@ public class OrderItem {
     @ManyToOne
     @JoinColumn(name = "order_id",referencedColumnName = "order_id",nullable = false,updatable = false)
     private Order order;
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(getOrderItemId());
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        OrderItem orderItem = (OrderItem) obj;
+        return orderItemId == orderItem.orderItemId;
+    }
 }

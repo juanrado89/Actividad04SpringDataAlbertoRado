@@ -9,6 +9,7 @@ import lombok.Setter;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "orders")
@@ -36,6 +37,23 @@ public class Order {
     @JoinColumn(name = "shipment_id",referencedColumnName = "shipment_id",nullable = false,updatable = false)
     private Shipment shipment;
 
+    @ManyToOne
+    @JoinColumn(name = "customer_id",referencedColumnName = "customer_id",nullable = false,updatable = false)
+    private Customer customer;
+
     @OneToMany(mappedBy = "order")
     private List<OrderItem> orderItemList;
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(getOrderId());
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Order order = (Order) obj;
+        return orderId == order.orderId;
+    }
 }

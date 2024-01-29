@@ -9,6 +9,7 @@ import lombok.Setter;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "payment")
@@ -37,4 +38,18 @@ public class Payment {
 
     @OneToMany(mappedBy = "payment")
     private List<Order> orders;
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(getPaymentId());
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Payment payment = (Payment) obj;
+        return paymentId == payment.paymentId;
+    }
+
 }

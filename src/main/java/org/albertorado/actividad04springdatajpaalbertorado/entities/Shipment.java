@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "shipment")
@@ -46,4 +47,17 @@ public class Shipment {
 
     @OneToMany(mappedBy = "shipment")
     private List<Order> orderList;
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(getShipmentId());
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Shipment shipment = (Shipment) obj;
+        return shipmentId == shipment.shipmentId;
+    }
 }

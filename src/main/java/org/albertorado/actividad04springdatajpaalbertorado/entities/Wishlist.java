@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -21,10 +22,23 @@ public class Wishlist {
     private int wishlistId;
 
     @ManyToOne()
-    @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false, updatable = false)
+    @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = true, updatable = false)
     private Product product;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id", referencedColumnName = "customer_id", nullable = false, updatable = false)
+    @JoinColumn(name = "customer_id", referencedColumnName = "customer_id", nullable = true, updatable = false)
     private Customer customer;
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(getWishlistId());
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Wishlist wishlist = (Wishlist) obj;
+        return wishlistId == wishlist.wishlistId;
+    }
 }

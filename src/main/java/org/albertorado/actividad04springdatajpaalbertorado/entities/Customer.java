@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "customer")
@@ -39,7 +40,7 @@ public class Customer {
     private String phoneNumber;
 
     @ManyToOne
-    @JoinColumn(name = "wishlist_id",referencedColumnName = "wishlist_id",nullable = false,updatable = false)
+    @JoinColumn(name = "wishlist_id",referencedColumnName = "wishlist_id",nullable = true,updatable = false)
     private Wishlist wishlist;
 
     @OneToMany(mappedBy = "customer")
@@ -51,4 +52,21 @@ public class Customer {
     @OneToMany(mappedBy = "customer")
     private List<Cart> cart;
 
+    @OneToMany(mappedBy = "customer")
+    private List<Order> orders;
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(getCustomerId());
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Customer customer = (Customer) obj;
+        return customerId == customer.customerId;
+    }
 }
+
+
