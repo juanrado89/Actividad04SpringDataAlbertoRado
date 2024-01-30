@@ -30,7 +30,7 @@ public class Customer {
     @Column(name = "email", length = 100, nullable = false)
     private String email;
     @Basic
-    @Column(name = "password", length = 100, nullable = false)
+    @Column(name = "password", length = 100, nullable = true)
     private String password;
     @Basic
     @Column(name = "address", length = 100, nullable = false)

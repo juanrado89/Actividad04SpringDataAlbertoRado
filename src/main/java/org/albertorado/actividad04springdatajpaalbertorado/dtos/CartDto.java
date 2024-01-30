@@ -9,7 +9,7 @@ import org.albertorado.actividad04springdatajpaalbertorado.entities.Product;
 @AllArgsConstructor
 public class CartDto {
     private final int cartId;
-    private final int cuantity;
+    private final int quantity;
     private final Product product;
     private final Customer customer;
 }
