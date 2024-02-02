@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 public interface ProductRepository extends JpaRepository<Product,Integer> {
 
@@ -14,4 +15,6 @@ public interface ProductRepository extends JpaRepository<Product,Integer> {
     //@Query("SELECT p.productId,p.sku,p.description,p.price,p.stock,p.categories from Product p join p.categories order by p.description desc")
     @Query("SELECT p from Product p order by p.description")
     Page<ProductDto> findAllOrderByDescriptionDes(Pageable pageable);
+
+    Page<ProductDto> findAllByDescriptionLikeIgnoreCaseOrderByDescriptionCartsDesc(Pageable pageable, @Param("searchString") String search);
 }

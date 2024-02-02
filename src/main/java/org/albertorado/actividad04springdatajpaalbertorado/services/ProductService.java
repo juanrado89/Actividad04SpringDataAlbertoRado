@@ -31,4 +31,9 @@ public class ProductService {
         Pageable pageable = PageRequest.of(page, size);
         return productRepository.findAllOrderByDescriptionDes(pageable);
     }
+
+    public Page<ProductDto> findByDescription(String description) {
+        Pageable pageable = PageRequest.of(0, 20);
+        return productRepository.findAllByDescriptionLikeIgnoreCaseOrderByDescriptionCartsDesc(pageable,description);
+    }
 }

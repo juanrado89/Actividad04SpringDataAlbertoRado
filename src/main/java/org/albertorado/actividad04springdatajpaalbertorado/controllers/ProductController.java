@@ -25,6 +25,7 @@ public class ProductController {
     }
     @PutMapping("/description")
     public ResponseEntity<Page<ProductDto>> findByDescription(@RequestParam String descripcion){
-        Page<ProductDto> productDtoPage =
+        Page<ProductDto> productDtoPage = productService.findByDescription(descripcion);
+        return ResponseEntity.ok(productDtoPage);
     }
 }
