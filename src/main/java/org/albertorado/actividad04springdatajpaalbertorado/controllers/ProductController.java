@@ -2,10 +2,9 @@ package org.albertorado.actividad04springdatajpaalbertorado.controllers;
 
 import org.albertorado.actividad04springdatajpaalbertorado.dtos.ProductDto;
 import org.albertorado.actividad04springdatajpaalbertorado.services.ProductService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,7 +17,14 @@ public class ProductController {
         this.productService = productService;
     }
     @GetMapping("/all")
-    public ResponseEntity<List<ProductDto>> findAll(){
-        return ResponseEntity.ok(productService.findAll());
+    public ResponseEntity<Page<ProductDto>> findAll(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "4") int size) {
+        Page<ProductDto> productDtoPage= productService.findAll(page, size);
+        return ResponseEntity.ok(productDtoPage);
+    }
+    @PutMapping("/description")
+    public ResponseEntity<Page<ProductDto>> findByDescription(@RequestParam String descripcion){
+        Page<ProductDto> productDtoPage =
     }
 }

@@ -8,7 +8,11 @@ import java.math.BigDecimal;
 import java.util.List;
 
 
-public record ProductDto(int productId, String sku, String description, BigDecimal price, int stock,
-                         List<CategoryDto> categories) {
-
+public interface ProductDto {
+    Integer getProductId();
+    String getSku();
+    String getDescription();
+    BigDecimal getPrice();
+    Integer getStock();
+    List<CategoryDto> getCategories();
 }
