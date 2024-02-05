@@ -7,18 +7,16 @@ import org.albertorado.actividad04springdatajpaalbertorado.entities.Order;
 
 import java.sql.Timestamp;
 import java.util.List;
-@Getter
-@AllArgsConstructor
-public class ShipmentDto {
 
-    private final int shipmentId;
-    private final Timestamp shipmentDate;
+public interface ShipmentDto {
 
-    private final String address;
-    private final String city;
-    private final String state;
-    private final String country;
-    private final String zipCode;
-    private final Customer customer;
-    private final List<Order> orderList;
+    int getShipmentId();
+    Timestamp getShipmentDate();
+    String getAddress();
+    String getCity();
+    String getState();
+    String getCountry();
+    String getZipCode();
+    CustomerDto getCustomer();
+    List<OrderDto> getOrderList();
 }

@@ -5,11 +5,10 @@ import lombok.Getter;
 import org.albertorado.actividad04springdatajpaalbertorado.entities.Customer;
 import org.albertorado.actividad04springdatajpaalbertorado.entities.Product;
 
-@Getter
-@AllArgsConstructor
-public class CartDto {
-    private final int cartId;
-    private final int quantity;
-    private final Product product;
-    private final Customer customer;
+
+public interface CartDto {
+    int getCartId();
+    int getQuantity();
+    ProductDto getProduct();
+    CustomerDto getCustomer();
 }

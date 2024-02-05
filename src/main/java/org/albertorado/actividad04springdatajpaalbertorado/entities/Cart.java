@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "cart")
+@Table(name = "cart",indexes = {@Index(columnList = "product_id, customer_id",unique = true)})
 @Getter
 @Setter
 @NoArgsConstructor

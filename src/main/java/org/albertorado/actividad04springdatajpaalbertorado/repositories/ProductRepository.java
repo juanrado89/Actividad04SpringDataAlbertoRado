@@ -16,5 +16,6 @@ public interface ProductRepository extends JpaRepository<Product,Integer> {
     @Query("SELECT p from Product p order by p.description")
     Page<ProductDto> findAllOrderByDescriptionDes(Pageable pageable);
 
-    Page<ProductDto> findAllByDescriptionLikeIgnoreCaseOrderByDescriptionCartsDesc(Pageable pageable, @Param("searchString") String search);
+    @Query("SELECT p from Product p where lower(p.description) like lower(concat('%', :searchString, '%')) order by p.description desc")
+    Page<ProductDto> findAllByDescriptionContainingIgnoreCaseOrderByDescriptionDesc(Pageable pageable, @Param("searchString") String search);
 }

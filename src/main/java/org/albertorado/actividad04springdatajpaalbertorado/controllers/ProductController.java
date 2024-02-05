@@ -23,7 +23,7 @@ public class ProductController {
         Page<ProductDto> productDtoPage= productService.findAll(page, size);
         return ResponseEntity.ok(productDtoPage);
     }
-    @PutMapping("/description")
+    @PostMapping("/description")
     public ResponseEntity<Page<ProductDto>> findByDescription(@RequestParam String descripcion){
         Page<ProductDto> productDtoPage = productService.findByDescription(descripcion);
         return ResponseEntity.ok(productDtoPage);

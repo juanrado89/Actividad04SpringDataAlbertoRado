@@ -6,11 +6,10 @@ import lombok.Getter;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
-@Getter
-@AllArgsConstructor
-public class OrderDto {
 
-    private final int orderId;
-    private final Timestamp orderDate;
-    private final BigDecimal totalPrice;
+public interface OrderDto {
+
+    int getOrderId();
+    Timestamp getOrderDate();
+    BigDecimal getTotalPrice();
 }
