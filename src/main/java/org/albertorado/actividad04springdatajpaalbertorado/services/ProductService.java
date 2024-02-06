@@ -22,11 +22,6 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
-    /*
-    public List<ProductDto> findAll() {
-        return productRepository.findAllOrderByDescriptionDes(PageRequest.of(0,2)).getContent();
-    }
-*/
     public Page<ProductDto> findAll(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         return productRepository.findAllOrderByDescriptionDes(pageable);
