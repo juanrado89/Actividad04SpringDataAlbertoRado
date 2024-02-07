@@ -20,7 +20,8 @@ public class CartController {
 
     @PostMapping("/add")
     public ResponseEntity<CartTotalDto> addProduct(@RequestParam int customerId, @RequestParam int productId,@RequestParam int quantity){
-        return ResponseEntity.ok(cartService.addProduct(customerId,productId,quantity));
+        cartService.addProduct(customerId,productId,quantity);
+        return ResponseEntity.ok(cartService.findAllCartProducts(customerId));
     }
 
     @PutMapping("/remove")

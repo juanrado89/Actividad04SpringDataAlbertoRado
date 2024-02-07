@@ -6,6 +6,8 @@ import org.albertorado.actividad04springdatajpaalbertorado.repositories.CartRepo
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class CartService {
     private CartRepository cartRepository;
@@ -23,9 +25,14 @@ public class CartService {
         return new CartTotalDto(carts,total);
     }
 
-    public CartTotalDto addProduct(int customerId, int productId, int quantity){
-        cartRepository.insertCartProduct(customerId, productId, quantity);
-        return findAllCartProducts(customerId);
+    public void addProduct(int customerId, int productId, int quantity){
+        Optional<CartDto> esta = cartRepository.findCartByCustomerAndProduct(customerId, productId);
+        if(esta.isEmpty()){
+            cartRepository.insertCartProduct(customerId, productId, quantity);
+        }else{
+            int quantityNew = esta.get().getQuantity() + quantity;
+            cartRepository.updateCartByCustomerAndProduct(customerId, productId, quantityNew);
+        }
     }
 
     public String removeProduct(int customerId, int productId){

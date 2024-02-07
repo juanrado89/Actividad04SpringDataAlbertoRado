@@ -30,11 +30,11 @@ public class Order {
     private BigDecimal totalPrice;
 
     @ManyToOne
-    @JoinColumn(name = "payment_id",referencedColumnName = "payment_id",nullable = false,updatable = false)
+    @JoinColumn(name = "payment_id",referencedColumnName = "payment_id",nullable = true,updatable = false)
     private Payment payment;
 
     @ManyToOne
-    @JoinColumn(name = "shipment_id",referencedColumnName = "shipment_id",nullable = false,updatable = false)
+    @JoinColumn(name = "shipment_id",referencedColumnName = "shipment_id",nullable = true,updatable = false)
     private Shipment shipment;
 
     @ManyToOne
