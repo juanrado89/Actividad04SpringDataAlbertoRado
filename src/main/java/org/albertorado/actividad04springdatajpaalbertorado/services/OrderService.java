@@ -39,6 +39,7 @@ public class OrderService {
         for(CartDto cart:carrito){
             orderItemRepository.insertOrderItem(orderId,cart.getProduct().getProductId(),cart.getProduct().getPrice(), cart.getQuantity());
         }
+        cartRepository.removeCartByCustomer(customerId);
         return new OrderTotalDto(orders.get(0),orderItemRepository.getOrderItemsByOrder_OrderIdOrderByOrderItemIdDesc(orderId));
     }
 
