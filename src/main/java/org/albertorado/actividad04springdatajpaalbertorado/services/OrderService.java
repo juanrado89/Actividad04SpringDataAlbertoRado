@@ -27,20 +27,25 @@ public class OrderService {
 
     public OrderTotalDto completarPedido(int customerId){
         List<CartDto> carrito = cartRepository.findCartsByCustomer(customerId);
-        double total = 0;
-        for(CartDto cart:carrito){
-            total += Double.parseDouble(cart.getProduct().getPrice().toString()) * cart.getQuantity();
+        if(!carrito.isEmpty()){
+            double total = 0;
+            for(CartDto cart:carrito){
+                total += Double.parseDouble(cart.getProduct().getPrice().toString()) * cart.getQuantity();
+            }
+
+            orderRepository.insertOrder(customerId,total, Timestamp.valueOf(LocalDateTime.now()));
+            List<OrderDto> orders = orderRepository.getOrdersByCustomerOrderByOrderDateDesc(customerId);
+            int orderId = orders.get(0).getOrderId();
+
+            for(CartDto cart:carrito){
+                orderItemRepository.insertOrderItem(orderId,cart.getProduct().getProductId(),cart.getProduct().getPrice(), cart.getQuantity());
+            }
+            cartRepository.removeCartByCustomer(customerId);
+            return new OrderTotalDto(orders.get(0),orderItemRepository.getOrderItemsByOrder_OrderIdOrderByOrderItemIdDesc(orderId));
+        }else{
+            throw new RuntimeException("El carrito esta vacio, no se puede realizar la orden");
         }
 
-        orderRepository.insertOrder(customerId,total, Timestamp.valueOf(LocalDateTime.now()));
-        List<OrderDto> orders = orderRepository.getOrdersByCustomerOrderByOrderDateDesc(customerId);
-        int orderId = orders.get(0).getOrderId();
-
-        for(CartDto cart:carrito){
-            orderItemRepository.insertOrderItem(orderId,cart.getProduct().getProductId(),cart.getProduct().getPrice(), cart.getQuantity());
-        }
-        cartRepository.removeCartByCustomer(customerId);
-        return new OrderTotalDto(orders.get(0),orderItemRepository.getOrderItemsByOrder_OrderIdOrderByOrderItemIdDesc(orderId));
     }
 
 

@@ -13,7 +13,7 @@ import java.util.Objects;
 @Setter
 @AllArgsConstructor
 @Entity
-@Table(name = "wishlist")
+@Table(name = "wishlist",indexes = {@Index(columnList = "product_id, customer_id",unique = true)})
 @NoArgsConstructor
 public class Wishlist {
     @Id
