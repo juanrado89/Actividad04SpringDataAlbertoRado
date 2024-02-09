@@ -19,6 +19,12 @@ public interface OrderRepository extends JpaRepository<Order,Integer> {
     @Query(value = "INSERT INTO orders (customer_id,payment_id,shipment_id,total_price, order_date) VALUES (:customer, null, null, :total, :fecha)", nativeQuery = true)
     int insertOrder(@Param("customer") int customerId, @Param("total") double total, @Param("fecha")Timestamp fecha);
 
-    @Query("select o from Order o where o.customer.customerId = :customer order by o.orderDate desc")
-    List<OrderDto> getOrdersByCustomerOrderByOrderDateDesc(@Param("customer") int customerId);
+    @Query("select o from Order o where o.orderId = :order")
+    List<OrderDto> getOrderByOrderId(@Param("order") int orderId);
+    @Transactional
+    @Modifying
+    @Query("update Order o set o.shipment.shipmentId = :shipment where o.orderId = :order")
+    void updateOrderByOrderId(@Param("order") int orderId, @Param("shipment") int shipmentId);
+
+    List<OrderDto> getOrdersByCustomer_CustomerIdOrderByOrderDateDesc(int customerId);
 }

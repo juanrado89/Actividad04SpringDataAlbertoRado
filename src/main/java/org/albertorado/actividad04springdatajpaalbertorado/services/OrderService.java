@@ -34,7 +34,7 @@ public class OrderService {
             }
 
             orderRepository.insertOrder(customerId,total, Timestamp.valueOf(LocalDateTime.now()));
-            List<OrderDto> orders = orderRepository.getOrdersByCustomerOrderByOrderDateDesc(customerId);
+            List<OrderDto> orders = orderRepository.getOrdersByCustomer_CustomerIdOrderByOrderDateDesc(customerId);
             int orderId = orders.get(0).getOrderId();
 
             for(CartDto cart:carrito){

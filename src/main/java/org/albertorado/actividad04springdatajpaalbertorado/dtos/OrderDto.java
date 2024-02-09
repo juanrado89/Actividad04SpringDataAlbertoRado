@@ -12,4 +12,5 @@ public interface OrderDto {
     int getOrderId();
     Timestamp getOrderDate();
     BigDecimal getTotalPrice();
+    ShipmentDto getShipment();
 }
