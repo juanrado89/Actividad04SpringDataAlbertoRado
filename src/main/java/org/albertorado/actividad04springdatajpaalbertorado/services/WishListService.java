@@ -1,7 +1,6 @@
 package org.albertorado.actividad04springdatajpaalbertorado.services;
 
 import org.albertorado.actividad04springdatajpaalbertorado.dtos.WishListDto;
-import org.albertorado.actividad04springdatajpaalbertorado.dtos.WishListTotalDto;
 import org.albertorado.actividad04springdatajpaalbertorado.repositories.WishListRepository;
 import org.springframework.stereotype.Service;
 
@@ -19,11 +18,10 @@ public class WishListService {
         return wishListRepository.getAllByCustomer_CustomerId(customerId);
     }
     public void addProductToWishList(int customerId, int productId){
-        List<WishListDto> deseos = wishListRepository.getAllByCustomer_CustomerId(customerId);
-        if(deseos.isEmpty()){
-            wishListRepository.insertProductInWishList(customerId, productId);
+        List<WishListDto> producto = wishListRepository.getByCustomer_CustomerIdAndProduct_ProductId(customerId, productId);
+        if(producto.isEmpty()){
+            wishListRepository.insertWishListProduct(customerId, productId);
         }
-
     }
 
     public void removeProduct(int customerId, int productId){

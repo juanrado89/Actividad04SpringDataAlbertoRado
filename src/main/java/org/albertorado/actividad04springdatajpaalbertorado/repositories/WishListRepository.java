@@ -14,10 +14,11 @@ public interface WishListRepository extends JpaRepository<Wishlist,Integer> {
 
     @Query("select w from Wishlist w WHERE w.customer.customerId = :customer")
     List<WishListDto> getAllByCustomer_CustomerId(@Param("customer") int customerId);
+    List<WishListDto> getByCustomer_CustomerIdAndProduct_ProductId(@Param("customer") int customerId, @Param("product") int productId);
     @Transactional
     @Modifying
     @Query(value = "insert into wishlist (customer_id, product_id) values (:customer, :product)",nativeQuery = true)
-    void insertProductInWishList(@Param("customer") int customerId, @Param("product") int productId);
+    void insertWishListProduct(@Param("customer") int customerId, @Param("product") int productId);
     @Transactional
     @Modifying
     void removeByCustomer_CustomerIdAndAndProduct_ProductId(@Param("customer") int customerId, @Param("product") int productId);
