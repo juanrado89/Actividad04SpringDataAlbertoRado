@@ -39,9 +39,8 @@ public class Customer {
     @Column(name = "phone_number", length = 100, nullable = false)
     private String phoneNumber;
 
-    @ManyToOne
-    @JoinColumn(name = "wishlist_id",referencedColumnName = "wishlist_id",nullable = true,updatable = false)
-    private Wishlist wishlist;
+    @OneToMany(mappedBy = "customer")
+    private List<Wishlist> wishlist;
 
     @OneToMany(mappedBy = "customer")
     private List<Payment> paymentList;

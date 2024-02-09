@@ -26,6 +26,6 @@ INSERT INTO category (product_id, name) VALUES
                                             (9,'Limpieza'),
                                             (10,'Perecedero');
 
-INSERT INTO customer (wishlist_id, address, email,first_name, last_name, password,phone_number) VALUES
-                                                                                                    (null, 'Calle falsa 123', 'cuentafalsa@gmail.com','james', 'bond', '1234567','222555666'),
-                                                                                                    (null, 'Elm street', 'fredy@gmail.com','Freddy', 'Krugger', '1234567','999666333');
+INSERT INTO customer (address, email,first_name, last_name, password,phone_number) VALUES
+                                                                                                    ('Calle falsa 123', 'cuentafalsa@gmail.com','james', 'bond', '1234567','222555666'),
+                                                                                                    ('Elm street', 'fredy@gmail.com','Freddy', 'Krugger', '1234567','999666333');

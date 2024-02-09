@@ -13,7 +13,7 @@ import java.util.Objects;
 @Setter
 @AllArgsConstructor
 @Entity
-@Table(name = "wishlist",indexes = {@Index(columnList = "product_id, customer_id",unique = true)})
+@Table(name = "wishlist",indexes = {@Index(columnList = "customer_id, product_id",unique = true)})
 @NoArgsConstructor
 public class Wishlist {
     @Id
@@ -22,11 +22,11 @@ public class Wishlist {
     private int wishlistId;
 
     @ManyToOne()
-    @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = true, updatable = false)
+    @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false, updatable = false)
     private Product product;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id", referencedColumnName = "customer_id", nullable = true, updatable = false)
+    @JoinColumn(name = "customer_id", referencedColumnName = "customer_id", nullable = false, updatable = false)
     private Customer customer;
 
     @Override

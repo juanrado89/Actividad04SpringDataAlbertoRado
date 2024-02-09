@@ -12,10 +12,11 @@ import java.util.List;
 
 public interface WishListRepository extends JpaRepository<Wishlist,Integer> {
 
-    List<WishListDto> getWishlistsByCustomer_CustomerIdOrderByWishlistIdDesc(@Param("customer") int customerId);
+    @Query("select w from Wishlist w WHERE w.customer.customerId = :customer")
+    List<WishListDto> getAllByCustomer_CustomerId(@Param("customer") int customerId);
     @Transactional
     @Modifying
-    @Query(value = "insert into wish_list (customer_id, product_id) values (:customer, :product)",nativeQuery = true)
+    @Query(value = "insert into wishlist (customer_id, product_id) values (:customer, :product)",nativeQuery = true)
     void insertProductInWishList(@Param("customer") int customerId, @Param("product") int productId);
     @Transactional
     @Modifying
