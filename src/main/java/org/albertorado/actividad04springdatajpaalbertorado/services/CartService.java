@@ -52,7 +52,11 @@ public class CartService {
                         int quantityNew = esta.get().getQuantity() + quantity;
                         esta.get().setQuantity(quantityNew);
                     }
+                }else{
+                    throw new RuntimeException("El producto no existe.");
                 }
+            }else{
+                throw new RuntimeException("El cliente no existe.");
             }
 
         }
@@ -66,31 +70,12 @@ public class CartService {
 
         public void removeAllProduct(int customerId){
 
-            List<CartDto> carts = cartRepository.findCartsByCustomer(customerId);
-            if(!carts.isEmpty()){
-                List<Cart> cartsForDelete = new ArrayList<>();
-                for(CartDto cart: carts){
-                    Product product = new Product();
-                    Customer customer = new Customer();
-
-                    product.setProductId(cart.getProduct().getProductId());
-                    product.setSku(cart.getProduct().getSku());
-                    product.setDescription(cart.getProduct().getDescription());
-                    product.setPrice(cart.getProduct().getPrice());
-                    product.setStock(cart.getProduct().getStock());
-
-
-                    customer.setCustomerId(cart.getCustomer().getCustomerId());
-                    customer.setFirstName(cart.getCustomer().getFirstName());
-                    customer.setLastName(cart.getCustomer().getLastName());
-                    customer.setEmail(cart.getCustomer().getEmail());
-                    customer.setAddress(cart.getCustomer().getAddress());
-                    customer.setPhoneNumber(cart.getCustomer().getPhoneNumber());
-                    cartsForDelete.add(new Cart(cart.getCartId(),cart.getQuantity(),product,customer));
-                }
-                cartRepository.deleteAllInBatch(cartsForDelete);
+            Optional<Customer> cliente = customerRepository.findById(customerId);
+            if(cliente.isPresent()){
+                cartRepository.deleteAllInBatch(cliente.get().getCart());
+            }else{
+                throw new RuntimeException("El cliente no existe.");
             }
-
         }
 
 }

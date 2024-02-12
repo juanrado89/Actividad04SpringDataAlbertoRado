@@ -38,7 +38,11 @@ public class WishListService {
                     wishList.setProduct(producto.orElseThrow());
                     wishList.setCustomer(cliente.orElseThrow());
                     wishListRepository.save(wishList);
+                }else{
+                    throw new RuntimeException("El producto no existe.");
                 }
+            }else{
+                throw new RuntimeException("El cliente no existe.");
             }
 
         }
@@ -54,6 +58,8 @@ public class WishListService {
                     wishListRepository.delete(eliminar.orElseThrow());
                 }
             }
+        }else{
+            throw new RuntimeException("El cliente no existe.");
         }
 
     }
@@ -61,8 +67,9 @@ public class WishListService {
     public void removeAllProduct(int customerId) {
         Optional<Customer> cliente = customerRepository.findById(customerId);
         if(cliente.isPresent()){
-            List<Wishlist> lista = cliente.get().getWishlist();
-            wishListRepository.deleteAllInBatch(lista);
+            wishListRepository.deleteAllInBatch(cliente.get().getWishlist());
+        }else{
+            throw new RuntimeException("El cliente no existe.");
         }
     }
 }
