@@ -14,10 +14,7 @@ import java.util.List;
 
 public interface OrderRepository extends JpaRepository<Order,Integer> {
 
-    @Transactional
-    @Modifying
-    @Query(value = "INSERT INTO orders (customer_id,payment_id,shipment_id,total_price, order_date) VALUES (:customer, null, null, :total, :fecha)", nativeQuery = true)
-    int insertOrder(@Param("customer") int customerId, @Param("total") double total, @Param("fecha")Timestamp fecha);
+
 
     @Query("select o from Order o where o.orderId = :order")
     List<OrderDto> getOrderByOrderId(@Param("order") int orderId);

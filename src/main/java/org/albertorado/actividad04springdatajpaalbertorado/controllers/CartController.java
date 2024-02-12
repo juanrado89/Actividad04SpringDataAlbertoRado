@@ -25,12 +25,12 @@ public class CartController {
     }
 
     @PutMapping("/remove")
-    public ResponseEntity<String> removeProduct(@RequestParam int customerId, @RequestParam int productId){
-        return ResponseEntity.ok(cartService.removeProduct(customerId, productId));
+    public void removeProduct(@RequestParam int customerId, @RequestParam int productId){
+        cartService.removeProduct(customerId, productId);
     }
 
     @PutMapping("/removeall")
-    public ResponseEntity<String> removeProduct(@RequestParam int customerId){
-        return ResponseEntity.ok(cartService.removeAllProduct(customerId));
+    public void removeProduct(@RequestParam int customerId){
+        cartService.removeAllProduct(customerId);
     }
 }
