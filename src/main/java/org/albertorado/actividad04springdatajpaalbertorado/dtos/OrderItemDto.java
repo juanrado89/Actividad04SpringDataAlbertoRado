@@ -14,5 +14,5 @@ public interface OrderItemDto {
     int getQuantity();
     BigDecimal getPrice();
     ProductDto getProduct();
-    OrderDto getOrder();
+
 }

@@ -1,5 +1,6 @@
 package org.albertorado.actividad04springdatajpaalbertorado.controllers;
 
+import org.albertorado.actividad04springdatajpaalbertorado.dtos.OrderDto;
 import org.albertorado.actividad04springdatajpaalbertorado.dtos.OrderTotalDto;
 import org.albertorado.actividad04springdatajpaalbertorado.repositories.OrderRepository;
 import org.albertorado.actividad04springdatajpaalbertorado.services.OrderService;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/pedido")
 public class OrderController {
-    private OrderService orderService;
+    private final OrderService orderService;
 
 
     public OrderController(OrderService orderService) {
@@ -20,7 +21,7 @@ public class OrderController {
     }
 
     @GetMapping("/cart")
-    public ResponseEntity<OrderTotalDto> completarPedido(@RequestParam int customerId){
+    public ResponseEntity<OrderDto> completarPedido(@RequestParam int customerId){
         return ResponseEntity.ok(orderService.completarPedido(customerId));
     }
 }

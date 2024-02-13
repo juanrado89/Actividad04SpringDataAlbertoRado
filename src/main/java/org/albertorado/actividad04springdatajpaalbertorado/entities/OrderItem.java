@@ -32,7 +32,7 @@ public class OrderItem {
     private Product product;
 
     @ManyToOne
-    @JoinColumn(name = "order_id",referencedColumnName = "order_id",nullable = true,updatable = false)
+    @JoinColumn(name = "order_id",referencedColumnName = "order_id",nullable = false,updatable = true)
     private Order order;
 
     @Override

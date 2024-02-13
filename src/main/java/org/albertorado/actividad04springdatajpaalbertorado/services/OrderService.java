@@ -17,9 +17,9 @@ import java.util.List;
 
 @Service
 public class OrderService {
-    private OrderRepository orderRepository;
-    private CartRepository cartRepository;
-    private OrderItemRepository orderItemRepository;
+    private final OrderRepository orderRepository;
+    private final CartRepository cartRepository;
+    private final OrderItemRepository orderItemRepository;
 
     public OrderService(OrderRepository orderRepository, CartRepository cartRepository, OrderItemRepository orderItemRepository) {
         this.orderRepository = orderRepository;
@@ -27,7 +27,7 @@ public class OrderService {
         this.orderItemRepository = orderItemRepository;
     }
 
-    public OrderTotalDto completarPedido(int customerId){
+    public OrderDto completarPedido(int customerId){
         List<CartDto> carrito = cartRepository.findCartsByCustomer(customerId);
         List<Cart> carritoForInsert = new ArrayList<>();
         if(!carrito.isEmpty()){
@@ -59,7 +59,7 @@ public class OrderService {
             order.setCustomer(carritoForInsert.get(0).getCustomer());
             orderRepository.save(order);
 
-            List<OrderItem> cartProdcuts = new ArrayList<>();
+            List<OrderItem> cartProducts = new ArrayList<>();
 
             for(Cart cart:carritoForInsert){
                 OrderItem item = new OrderItem();
@@ -67,12 +67,13 @@ public class OrderService {
                 item.setProduct(cart.getProduct());
                 item.setQuantity(cart.getQuantity());
                 item.setOrder(order);
-                cartProdcuts.add(item);
+                cartProducts.add(item);
             }
-            orderItemRepository.saveAll(cartProdcuts);
+            orderItemRepository.saveAll(cartProducts);
+            order.setOrderItem(cartProducts);
+            orderRepository.save(order);
             cartRepository.deleteAllInBatch(carritoForInsert);
-            OrderDto orden = orderRepository.getOrdersByCustomer_CustomerIdOrderByOrderDateDesc(order.getCustomer().getCustomerId()).get(0);
-            return new OrderTotalDto(orden,orderItemRepository.getOrderItemsByOrder_OrderIdOrderByOrderItemIdDesc(orden.getOrderId()));
+            return orderRepository.getOrdersByCustomer_CustomerIdOrderByOrderDateDesc(order.getCustomer().getCustomerId()).get(0);
         }else{
             throw new RuntimeException("El carrito esta vacio, no se puede realizar la orden");
         }

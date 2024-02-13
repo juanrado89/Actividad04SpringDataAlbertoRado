@@ -8,9 +8,9 @@ import org.albertorado.actividad04springdatajpaalbertorado.entities.Product;
 import org.albertorado.actividad04springdatajpaalbertorado.repositories.CartRepository;
 import org.albertorado.actividad04springdatajpaalbertorado.repositories.CustomerRepository;
 import org.albertorado.actividad04springdatajpaalbertorado.repositories.ProductRepository;
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,7 +18,7 @@ import java.util.Optional;
 public class CartService {
     private final CustomerRepository customerRepository;
     private final ProductRepository productRepository;
-    private CartRepository cartRepository;
+    private final CartRepository cartRepository;
 
     public CartService(CartRepository cartRepository, CustomerRepository customerRepository, ProductRepository productRepository) {
         this.cartRepository = cartRepository;
@@ -39,24 +39,26 @@ public class CartService {
         public void addProduct(int customerId, int productId, int quantity){
             Optional<Customer> customer = customerRepository.findById(customerId);
             Optional<Product> product = productRepository.findById(productId);
-            Optional<Cart> esta = cartRepository.findCartByCustomerAndProduct(customerId, productId);
+            Optional<Cart> carrito = cartRepository.findCartByCustomerAndProduct(customerId, productId);
             if(customer.isPresent()){
                 if(product.isPresent()){
-                    if (esta.isEmpty()) {
+                    if (carrito.isEmpty()) {
                         Cart cart = new Cart();
                         cart.setCustomer(customer.orElseThrow());
                         cart.setProduct(product.orElseThrow());
                         cart.setQuantity(quantity);
                         cartRepository.save(cart);
                     } else {
-                        int quantityNew = esta.get().getQuantity() + quantity;
-                        esta.get().setQuantity(quantityNew);
+                        int quantityNew = carrito.get().getQuantity() + quantity;
+                        carrito.get().setQuantity(quantityNew);
+
                     }
                 }else{
-                    throw new RuntimeException("El producto no existe.");
+                    throw new ObjectNotFoundException(productId,"Product");
+
                 }
             }else{
-                throw new RuntimeException("El cliente no existe.");
+                throw new ObjectNotFoundException(customerId,"Customer");
             }
 
         }
@@ -74,7 +76,7 @@ public class CartService {
             if(cliente.isPresent()){
                 cartRepository.deleteAllInBatch(cliente.get().getCart());
             }else{
-                throw new RuntimeException("El cliente no existe.");
+                throw new ObjectNotFoundException(customerId,"Customer");
             }
         }
 

@@ -34,7 +34,7 @@ public class Order {
     private Payment payment;
 
     @ManyToOne
-    @JoinColumn(name = "shipment_id",referencedColumnName = "shipment_id",nullable = true,updatable = false)
+    @JoinColumn(name = "shipment_id",referencedColumnName = "shipment_id",nullable = true,updatable = true)
     private Shipment shipment;
 
     @ManyToOne
@@ -42,7 +42,7 @@ public class Order {
     private Customer customer;
 
     @OneToMany(mappedBy = "order")
-    private List<OrderItem> orderItemList;
+    private List<OrderItem> orderItem;
 
     @Override
     public int hashCode() {

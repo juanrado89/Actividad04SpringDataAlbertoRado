@@ -5,6 +5,7 @@ import lombok.Getter;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.List;
 
 
 public interface OrderDto {
@@ -13,4 +14,5 @@ public interface OrderDto {
     Timestamp getOrderDate();
     BigDecimal getTotalPrice();
     ShipmentDto getShipment();
+    List<OrderItemDto> getOrderItem();
 }

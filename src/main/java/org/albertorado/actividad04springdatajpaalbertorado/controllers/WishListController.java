@@ -10,7 +10,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/wishlist")
 public class WishListController {
-    private WishListService wishListService;
+    private final WishListService wishListService;
 
     public WishListController(WishListService wishListService) {
         this.wishListService = wishListService;

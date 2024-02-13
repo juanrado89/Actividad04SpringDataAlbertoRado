@@ -18,5 +18,5 @@ public interface ShipmentDto {
     String getCountry();
     String getZipCode();
     CustomerDto getCustomer();
-    List<OrderDto> getOrderList();
+    OrderDto getOrderList();
 }

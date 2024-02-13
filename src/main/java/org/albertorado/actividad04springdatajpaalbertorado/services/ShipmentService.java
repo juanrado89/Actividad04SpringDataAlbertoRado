@@ -9,6 +9,7 @@ import org.albertorado.actividad04springdatajpaalbertorado.repositories.Customer
 import org.albertorado.actividad04springdatajpaalbertorado.repositories.OrderItemRepository;
 import org.albertorado.actividad04springdatajpaalbertorado.repositories.OrderRepository;
 import org.albertorado.actividad04springdatajpaalbertorado.repositories.ShipmentRepository;
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -45,7 +46,7 @@ public class ShipmentService {
                         throw new RuntimeException("El pedido ya ha sido enviado");
                     }
                 }else{
-                    throw new RuntimeException("El pedido no existe");
+                    throw new ObjectNotFoundException(include.get().getOrderId(),"Order");
                 }
             }
             if(!ordenes.isEmpty()){
@@ -59,6 +60,7 @@ public class ShipmentService {
                 shipment.setCustomer(cliente.orElseThrow());
 
                 shipmentRepository.save(shipment);
+
                 for(Order orden:ordenes){
                     orden.setShipment(shipment);
                     orderRepository.save(orden);
@@ -67,7 +69,7 @@ public class ShipmentService {
                 throw new RuntimeException("No tiene ordenes para enviar.");
             }
         }else{
-            throw new RuntimeException("El cliente no existe.");
+            throw new ObjectNotFoundException(customerId,"Customer");
         }
         List<ShipmentDto> envio = shipmentRepository.getAllByCustomer_CustomerIdOrderByShipmentIdDesc(customerId);
         return envio.get(0);

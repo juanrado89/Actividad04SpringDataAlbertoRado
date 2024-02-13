@@ -7,6 +7,7 @@ import org.albertorado.actividad04springdatajpaalbertorado.entities.Wishlist;
 import org.albertorado.actividad04springdatajpaalbertorado.repositories.CustomerRepository;
 import org.albertorado.actividad04springdatajpaalbertorado.repositories.ProductRepository;
 import org.albertorado.actividad04springdatajpaalbertorado.repositories.WishListRepository;
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,10 +40,10 @@ public class WishListService {
                     wishList.setCustomer(cliente.orElseThrow());
                     wishListRepository.save(wishList);
                 }else{
-                    throw new RuntimeException("El producto no existe.");
+                    throw new ObjectNotFoundException(productId,"Product");
                 }
             }else{
-                throw new RuntimeException("El cliente no existe.");
+                throw new ObjectNotFoundException(customerId,"Customer");
             }
 
         }
@@ -59,7 +60,7 @@ public class WishListService {
                 }
             }
         }else{
-            throw new RuntimeException("El cliente no existe.");
+            throw new ObjectNotFoundException(customerId,"Customer");
         }
 
     }
@@ -69,7 +70,7 @@ public class WishListService {
         if(cliente.isPresent()){
             wishListRepository.deleteAllInBatch(cliente.get().getWishlist());
         }else{
-            throw new RuntimeException("El cliente no existe.");
+            throw new ObjectNotFoundException(customerId,"Customer");
         }
     }
 }

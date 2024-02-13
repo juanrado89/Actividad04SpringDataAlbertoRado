@@ -8,14 +8,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 @RestController
 @RequestMapping("/shipment")
 public class ShipmentController {
 
-    private ShipmentService shipmentService;
+    private final ShipmentService shipmentService;
 
     public ShipmentController(ShipmentService shipmentService) {
         this.shipmentService = shipmentService;
