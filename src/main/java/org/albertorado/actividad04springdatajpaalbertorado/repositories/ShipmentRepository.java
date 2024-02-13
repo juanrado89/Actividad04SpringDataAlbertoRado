@@ -9,8 +9,6 @@ import java.util.List;
 
 public interface ShipmentRepository extends JpaRepository<Shipment, Integer> {
 
-
-
     List<ShipmentDto> getAllByCustomer_CustomerIdOrderByShipmentIdDesc(@Param("customer") int customerId);
 
 }

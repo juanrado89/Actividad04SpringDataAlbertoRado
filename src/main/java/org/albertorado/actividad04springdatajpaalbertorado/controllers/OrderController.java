@@ -1,8 +1,6 @@
 package org.albertorado.actividad04springdatajpaalbertorado.controllers;
 
 import org.albertorado.actividad04springdatajpaalbertorado.dtos.OrderDto;
-import org.albertorado.actividad04springdatajpaalbertorado.dtos.OrderTotalDto;
-import org.albertorado.actividad04springdatajpaalbertorado.repositories.OrderRepository;
 import org.albertorado.actividad04springdatajpaalbertorado.services.OrderService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

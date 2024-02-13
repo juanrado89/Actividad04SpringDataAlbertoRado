@@ -2,7 +2,6 @@ package org.albertorado.actividad04springdatajpaalbertorado.services;
 
 import org.albertorado.actividad04springdatajpaalbertorado.dtos.CartDto;
 import org.albertorado.actividad04springdatajpaalbertorado.dtos.OrderDto;
-import org.albertorado.actividad04springdatajpaalbertorado.dtos.OrderTotalDto;
 import org.albertorado.actividad04springdatajpaalbertorado.entities.*;
 import org.albertorado.actividad04springdatajpaalbertorado.repositories.CartRepository;
 import org.albertorado.actividad04springdatajpaalbertorado.repositories.OrderItemRepository;

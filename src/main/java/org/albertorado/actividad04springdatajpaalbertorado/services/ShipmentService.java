@@ -1,12 +1,10 @@
 package org.albertorado.actividad04springdatajpaalbertorado.services;
 
-import org.albertorado.actividad04springdatajpaalbertorado.dtos.OrderDto;
 import org.albertorado.actividad04springdatajpaalbertorado.dtos.ShipmentDto;
 import org.albertorado.actividad04springdatajpaalbertorado.entities.Customer;
 import org.albertorado.actividad04springdatajpaalbertorado.entities.Order;
 import org.albertorado.actividad04springdatajpaalbertorado.entities.Shipment;
 import org.albertorado.actividad04springdatajpaalbertorado.repositories.CustomerRepository;
-import org.albertorado.actividad04springdatajpaalbertorado.repositories.OrderItemRepository;
 import org.albertorado.actividad04springdatajpaalbertorado.repositories.OrderRepository;
 import org.albertorado.actividad04springdatajpaalbertorado.repositories.ShipmentRepository;
 import org.hibernate.ObjectNotFoundException;
@@ -16,15 +14,14 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @Service
 public class ShipmentService {
 
     private final CustomerRepository customerRepository;
-    private ShipmentRepository shipmentRepository;
-    private OrderRepository orderRepository;
+    private final ShipmentRepository shipmentRepository;
+    private final OrderRepository orderRepository;
 
     public ShipmentService(ShipmentRepository shipmentRepository, OrderRepository orderRepository, CustomerRepository customerRepository) {
         this.shipmentRepository = shipmentRepository;

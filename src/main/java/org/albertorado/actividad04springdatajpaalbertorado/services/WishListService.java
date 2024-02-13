@@ -17,7 +17,7 @@ import java.util.Optional;
 public class WishListService {
     private final ProductRepository productRepository;
     private final CustomerRepository customerRepository;
-    private WishListRepository wishListRepository;
+    private final WishListRepository wishListRepository;
 
     public WishListService(WishListRepository wishListRepository, ProductRepository productRepository, CustomerRepository customerRepository) {
         this.wishListRepository = wishListRepository;
